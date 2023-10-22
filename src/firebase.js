@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_AUTH_KEY_FIREBASE,
+  apiKey: "AIzaSyBOb1mGak7Ifp-QgL6fVOXknJ8kmccnbUo",
   authDomain: "dostrip-f1b21.firebaseapp.com",
   projectId: "dostrip-f1b21",
   storageBucket: "dostrip-f1b21.appspot.com",
