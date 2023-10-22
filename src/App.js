@@ -5,6 +5,7 @@ import Account from './components/Account';
 import { Route, Routes } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import ForgotPassword from './components/ForgotPassword';
 //import { ReactComponent as logo } from './dostrip-logo.svg';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/ForgotPassword' element={<ForgotPassword />} />
           <Route
             path='/account'
             element={
