@@ -5,6 +5,7 @@ import Account from './components/Account';
 import { Route, Routes } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+//import { ReactComponent as logo } from './dostrip-logo.svg';
 
 function App() {
   return (

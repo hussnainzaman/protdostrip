@@ -11,7 +11,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError('Please type all information requried');
     try {
       await createUser(email, password);
       navigate('/account')
