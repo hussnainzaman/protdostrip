@@ -8,7 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ForgotPassword from './components/ForgotPassword';
 import Home from './components/Home';
 import Questions from './components/Questions'
-//import Landing from '/components/Landing'
+import Landing from './components/Landing'
 //import { ReactComponent as logo } from './dostrip-logo.svg';
 
 function App() {
@@ -16,7 +16,8 @@ function App() {
     <div>
       <AuthContextProvider>
         <Routes>
-          <Route path='/' element={<Signin />} />
+          <Route path='/' element={<Landing />} />
+          <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/ForgotPassword' element={<ForgotPassword />} />
           <Route
