@@ -14,7 +14,7 @@ const Signin = () => {
     setError('')
     try {
       await signIn(email, password)
-      navigate('/account')
+      navigate('/main')
     } catch (e) {
       setError(e.message)
       console.log(e.message)
@@ -22,7 +22,7 @@ const Signin = () => {
   };
 
   return (
-    <div className='max-w-[700px] mx-auto my-16 p-4'>
+    <div className='max-w-[300px] mx-auto my-16 p-4'>
       <div>
         <h1 className='text-2xl font-bold py-2'>Sign in to your account</h1>
         <p className='py-2'>

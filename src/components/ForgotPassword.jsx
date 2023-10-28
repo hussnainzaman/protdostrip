@@ -21,7 +21,7 @@ const ForgotPassword = () => {
     };
   
     return (
-      <div className='max-w-[700px] mx-auto my-16 p-4'>
+      <div className='max-w-[300px] mx-auto my-16 p-4'>
         <div>
           <h1 className='text-2xl font-bold py-2'>Reset you password</h1>
           <p className='py-2'>

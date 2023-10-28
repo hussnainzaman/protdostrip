@@ -6,14 +6,14 @@ import { Route, Routes } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import ForgotPassword from './components/ForgotPassword';
+import Home from './components/Home';
+import Questions from './components/Questions'
+//import Landing from '/components/Landing'
 //import { ReactComponent as logo } from './dostrip-logo.svg';
 
 function App() {
   return (
     <div>
-      <h1 className='text-center text-3xl font-bold'>
-        Dostrip User Login
-      </h1>
       <AuthContextProvider>
         <Routes>
           <Route path='/' element={<Signin />} />
@@ -24,6 +24,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <Account />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/main'
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+            <Route
+            path='/form_new'
+            element={
+              <ProtectedRoute>
+                <Questions />
               </ProtectedRoute>
             }
           />
