@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
 
 const Signin = () => {
   const [email, setEmail] = useState('');
@@ -8,6 +11,7 @@ const Signin = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { signIn } = UserAuth();
+  const { forgotPassword } = UserAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,9 +25,20 @@ const Signin = () => {
     }
   };
 
+  const handleSubmit1 = async (e) => {
+    e.preventDefault();
+    setError('')
+    try {
+      await forgotPassword(email)
+      navigate('/signin')
+    } catch (e) {
+      setError(e.message)
+      console.log(e.message)
+    }
+  };
   return (
     <div className='signin w-[1400px] mx-auto my-auto '>
-      <div className="Rectangle w-auto h-20 bg-teal-400 ">
+      <div className="Rectangle w-auto h-20 bg-teal-400 bg-gradient-to-r from-teal-500 to-cyan-500 ">
         <div className="signupbtn w-28 h-12 left-[1240px] top-[20px] absolute">
           <div className="Rectangle w-28 h-12 left-0 top-0 absolute rounded-lg shadow bg-zinc-700" />
           <button className="signup left-[30px] top-[13px] absolute text-amber-100  text-base font-bold font-['Nunito']">
@@ -56,14 +71,26 @@ const Signin = () => {
               <label className='py-2 font-medium'>Password</label>
               <input onChange={(e) => setPassword(e.target.value)} className='border p-3 rounded-lg shadow' type='password' />
             </div>
-            <button className='border bg-red-500 hover:bg-teal-500 w-full p-4 my-2 text-white rounded-lg shadow'>
+            <button className='border bg-red-500 hover:bg-teal-500 w-full p-4 my-2 rounded-lg shadow  text-amber-100  text-base font-bold'>
               Sign In
             </button>
-            <button className='border bg-zinc-600 hover:bg-red-900 w-full p-4 my-2 text-white rounded-lg shadow'>
-              <Link to='/ForgotPassword'>
-                Forgot Password
-              </Link>
-            </button>
+            <Popup trigger={<button className='border-zinc-700 bg-zinc-700 hover:bg-teal-600 w-full p-4 my-2 text-amber-100  text-base font-bold rounded-lg shadow' href='(http://0.0.0.0:3000/forgotpassword)'>
+              Forgot Password
+            </button>} position="left bottom">
+              <div className='bg-amber-100 w-auto '>
+                <form onSubmit={handleSubmit1} >
+                  <div className='flex flex-col py-2 bg-amber-100 '>
+                    <label className='py-2 font-medium'>Email Address</label>
+                    <input onChange={(e) => setEmail(e.target.value)} className='border p-3 font-bold rounded-lg shadow' type='email' />
+                  </div>
+                  <button className='border  bg-zinc-700 hover:bg-teal-500 w-full p-4 my-2 text-white font-bold rounded-lg shadow'>
+                    Reset Password
+                  </button>
+                </form>
+
+              </div>
+            </Popup>
+
           </form>
         </div>
         <div class="Rectangle h-20 left-0 top-0  bg-red-400 text-center p-6 text-white">

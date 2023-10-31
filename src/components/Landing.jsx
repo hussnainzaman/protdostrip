@@ -8,8 +8,8 @@ const Landing = () => {
 
 
   return (
-    <div className='landing  mx-auto my-auto bg-teal-400'>
-      <div className="Navbar mx-auto my-0 w-auto h-20 ">
+    <div className='landing w-[1400px] mx-auto my-auto bg-teal-400 bg-gradient-to-r from-teal-500 to-cyan-500'>
+      <div className="Navbar w-[1400px] mx-auto my-0 h-20 ">
         <div className="Rectangle w-200 h-18 bg-white shadow" />
 
         <div className="loginbtn w-28 h-12 left-[1240px] top-[20px] absolute">
@@ -36,10 +36,10 @@ const Landing = () => {
         </button>
         <button className="navbtn2 left-[999px] top-[30px] absolute text-amber-100  text-xl font-semibold font-['Nunito']">About Us</button>
       </div>
-      <div className="Header mx-auto my-auto absolute">
+      <div className="Header mx-auto my-auto top-[95px] absolute">
         <div className="MaskGroup w-50 h-auto left-0 top-0">
 
-          <img className="image w-200 h-200 " src={require("./images/img001.jpg")} alt='pic by freepik' />
+          <img className="image w-[1400px] h-[900px] " src={require("./images/img001.jpg")} alt='pic by freepik' />
         </div>
 
         <div class="Rectangle h-20 left-0 top-0 relative bg-red-400 text-center p-6 text-white">

@@ -23,7 +23,7 @@ const Signup = () => {
 
   return (
       <div className='signin w-[1400px] mx-auto my-auto '>
-        <div className="Rectangle w-auto h-20 bg-teal-400 ">
+        <div className="Rectangle w-auto h-20 bg-teal-400 bg-gradient-to-r from-teal-500 to-cyan-500  ">
           <div className="signupbtn w-28 h-12 left-[1240px] top-[20px] absolute">
             <div className="Rectangle w-28 h-12 left-0 top-0 absolute rounded-lg shadow bg-red-600" />
             <button className="signup left-[30px] top-[13px] absolute text-amber-100  text-base font-bold font-['Nunito']">
@@ -56,7 +56,7 @@ const Signup = () => {
                 <label className='py-2 font-medium'>Password</label>
                 <input onChange={(e) => setPassword(e.target.value)} className='border p-3 rounded-lg shadow' type='password' />
               </div>
-              <button className=' bg-zinc-500 hover:bg-teal-500 w-full p-4 my-2 text-white rounded-lg shadow'>
+              <button className=' bg-zinc-700 hover:bg-teal-500 w-full p-4 my-2  text-amber-100  text-base font-bold rounded-lg shadow'>
                 Sign Up
               </button>
 
