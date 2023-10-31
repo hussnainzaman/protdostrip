@@ -8,12 +8,12 @@ const Landing = () => {
 
 
   return (
-    <div className='landing mx-auto my-auto bg-teal-400'>
+    <div className='landing  mx-auto my-auto bg-teal-400'>
       <div className="Navbar mx-auto my-0 w-auto h-20 ">
         <div className="Rectangle w-200 h-18 bg-white shadow" />
 
         <div className="loginbtn w-28 h-12 left-[1240px] top-[20px] absolute">
-          <div className="Rectangle w-28 h-12 left-0 top-0 absolute bg-red-400 rounded-lg shadow" />
+          <div className="Rectangle w-28 h-12 left-0 top-0 absolute bg-red-500 rounded-lg shadow" />
           <button className="Login left-[34px] top-[113x] bottom-3 absolute text-amber-100 text-base font-bold font-['Nunito']">
             <Link to='/signin'>
               Log In
@@ -21,8 +21,8 @@ const Landing = () => {
           </button>
         </div>
         <div className="signupbtn w-28 h-12 left-[1106px] top-[20px] absolute">
-          <div className="Rectangle w-28 h-12 left-0 top-0 absolute rounded-lg shadow border border-red-400" />
-          <button className="signup left-[30px] top-[13px] absolute text-red-400  text-base font-bold font-['Nunito']">
+          <div className="Rectangle w-28 h-12 left-0 top-0 absolute rounded-lg shadow  bg-zinc-700" />
+          <button className="signup left-[30px] top-[13px] absolute  text-amber-100  text-base font-bold font-['Nunito']">
             <Link to='/signup'>
               Sign Up
             </Link>
