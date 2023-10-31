@@ -56,10 +56,10 @@ const Signin = () => {
               <label className='py-2 font-medium'>Password</label>
               <input onChange={(e) => setPassword(e.target.value)} className='border p-3 rounded-lg shadow' type='password' />
             </div>
-            <button className='border bg-red-500 hover:bg-blue-500 w-full p-4 my-2 text-white rounded-lg shadow'>
+            <button className='border bg-red-500 hover:bg-teal-500 w-full p-4 my-2 text-white rounded-lg shadow'>
               Sign In
             </button>
-            <button className='border bg-zinc-600 hover:bg-blue-900 w-full p-4 my-2 text-white rounded-lg shadow'>
+            <button className='border bg-zinc-600 hover:bg-red-900 w-full p-4 my-2 text-white rounded-lg shadow'>
               <Link to='/ForgotPassword'>
                 Forgot Password
               </Link>
