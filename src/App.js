@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,} from 'react';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
 import Account from './components/Account';
@@ -9,9 +9,13 @@ import ForgotPassword from './components/ForgotPassword';
 import Home from './components/Home';
 import Questions from './components/Questions'
 import Landing from './components/Landing'
+import Modal from './components/Modal';
 //import { ReactComponent as logo } from './dostrip-logo.svg';
 
+
 function App() {
+ 
+
   return (
     <div>
       <AuthContextProvider>
@@ -36,7 +40,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-            <Route
+          <Route
             path='/form_new'
             element={
               <ProtectedRoute>
@@ -44,8 +48,17 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path='/question'
+            element={
+              <ProtectedRoute>
+                <Modal />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </AuthContextProvider>
+
     </div>
   );
 }
