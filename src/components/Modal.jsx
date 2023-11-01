@@ -5,25 +5,15 @@ const Modal = ({ open, onClose }) => {
     if (!open) return null;
     return (
         <div onClick={onClose} className='overlay flex  w-[800px] h-[500px] '>
-            <div onClick={(e) => { e.stopPropagation();}} className='modalContainer'>
+            <div onClick={(e) => { e.stopPropagation(); }} className='modalContainer'>
                 <img src={bg} alt='/' />
-                <div className='modalRight'>
-                    <p className='closeBtn' onClick={onClose}>
-                        X
-                    </p>
-                    <div className='content'>
-                        <p>Do you want a</p>
-                        <h1>$20 CREDIT</h1>
-                        <p>for your first tade?</p>
-                    </div>
-                    <div className='btnContainer'>
-                        <button className='btnPrimary'>
-                            <span className='bold'>YES</span>, I love NFT's
-                        </button>
-                        <button className='btnOutline'>
-                            <span className='bold'>NO</span>, thanks
-                        </button>
-                    </div>
+            </div>
+            <div className='modalRight absolute center'>
+                <button className='closeBtn w-8 h-8 my-6 mx-[740px] bg-red-400 text-center align-text-top p text-amber-100 font-bold rounded-lg shadow ' onClick={onClose}>
+                    X
+                </button>
+                <div className='info text-center absolute'>
+                 Questionaaire will be displayed here.
                 </div>
             </div>
         </div>

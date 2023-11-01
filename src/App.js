@@ -6,8 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import ForgotPassword from './components/ForgotPassword';
-import Home from './components/Home';
-import Questions from './components/Questions'
+import Home from './components/Home'
 import Landing from './components/Landing'
 import Modal from './components/Modal';
 //import { ReactComponent as logo } from './dostrip-logo.svg';
@@ -37,14 +36,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path='/form_new'
-            element={
-              <ProtectedRoute>
-                <Questions />
               </ProtectedRoute>
             }
           />
