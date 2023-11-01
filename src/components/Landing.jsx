@@ -8,12 +8,12 @@ const Landing = () => {
 
 
   return (
-    <div className='landing w-[1400px] mx-auto my-auto bg-teal-400 bg-gradient-to-r from-teal-500 to-cyan-500'>
+    <div className='landing w-[1400px] mx-auto my-auto bg-teal-400 bg-gradient-to-r from-cyan-500 to-teal-500 '>
       <div className="Navbar w-[1400px] mx-auto my-0 h-20 ">
         <div className="Rectangle w-200 h-18 bg-white shadow" />
 
         <div className="loginbtn w-28 h-12 left-[1240px] top-[20px] absolute">
-          <div className="Rectangle w-28 h-12 left-0 top-0 absolute bg-red-500 rounded-lg shadow" />
+          <div className="Rectangle w-28 h-12 left-0 top-0 absolute bg-red-400 rounded-lg shadow" />
           <button className="Login left-[34px] top-[113x] bottom-3 absolute text-amber-100 text-base font-bold font-['Nunito']">
             <Link to='/signin'>
               Log In

@@ -52,7 +52,7 @@ const Signin = () => {
             <img className="image w-220 h-200 " src={require("./images/homologo.png")} alt='logo' />
           </Link>
         </button>
-        <button className="navbtn2 left-[1130px] top-[30px] absolute text-zinc-700  text-xl font-semibold font-['Nunito']">About Us</button>
+        <button className="navbtn2 left-[1130px] top-[30px] absolute text-amber-100  text-xl font-semibold font-['Nunito']">About Us</button>
       </div>
       <div className="Header mx-auto my-auto absolute">
         <div className="MaskGroup w-50 h-auto left-0 top-0">
@@ -71,7 +71,7 @@ const Signin = () => {
               <label className='py-2 font-medium'>Password</label>
               <input onChange={(e) => setPassword(e.target.value)} className='border p-3 rounded-lg shadow' type='password' />
             </div>
-            <button className='border bg-red-500 hover:bg-teal-500 w-full p-4 my-2 rounded-lg shadow  text-amber-100  text-base font-bold'>
+            <button className='border bg-red-400 hover:bg-teal-500 w-full p-4 my-2 rounded-lg shadow  text-amber-100  text-base font-bold'>
               Sign In
             </button>
             <Popup trigger={<button className='border-zinc-700 bg-zinc-700 hover:bg-teal-600 w-full p-4 my-2 text-amber-100  text-base font-bold rounded-lg shadow' href='(http://0.0.0.0:3000/forgotpassword)'>

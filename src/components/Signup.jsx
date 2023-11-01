@@ -25,7 +25,7 @@ const Signup = () => {
       <div className='signin w-[1400px] mx-auto my-auto '>
         <div className="Rectangle w-auto h-20 bg-teal-400 bg-gradient-to-r from-teal-500 to-cyan-500  ">
           <div className="signupbtn w-28 h-12 left-[1240px] top-[20px] absolute">
-            <div className="Rectangle w-28 h-12 left-0 top-0 absolute rounded-lg shadow bg-red-600" />
+            <div className="Rectangle w-28 h-12 left-0 top-0 absolute rounded-lg shadow bg-red-400" />
             <button className="signup left-[30px] top-[13px] absolute text-amber-100  text-base font-bold font-['Nunito']">
               <Link to='/signin'>
                 Log In
@@ -37,7 +37,7 @@ const Signup = () => {
               <img className="image w-220 h-200 " src={require("./images/homologo.png")} alt='logo' />
             </Link>
           </button>
-          <button className="navbtn2 left-[1130px] top-[30px] absolute text-zinc-700  text-xl font-semibold font-['Nunito']">About Us</button>
+          <button className="navbtn2 left-[1130px] top-[30px] absolute text-amber-100  text-xl font-semibold font-['Nunito']">About Us</button>
         </div>
         <div className="Header mx-auto my-auto absolute">
           <div className="MaskGroup w-50 h-auto left-0 top-0">
