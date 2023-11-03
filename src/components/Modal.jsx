@@ -2,6 +2,18 @@ import React from 'react';
 import bg from './images/img005.png';
 
 const Modal = ({ open, onClose }) => {
+    
+    const handleSubmit = async () => {
+        try {
+          const output ="sucess"
+          console.log('You have filled the data')
+          window.open('result','Form Submitted','toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=500,left = 312,top = 234' );
+          open.document.write(output);
+        } catch (e) {
+          console.log(e.message);
+        }
+      };
+
     if (!open) return null;
     return (
         <div onClick={onClose} className='overlay flex  w-[800px] h-[500px] '>
@@ -13,7 +25,7 @@ const Modal = ({ open, onClose }) => {
                     X
                 </button>
                 <div onClick={(e) => { e.stopPropagation(); }} className="form  left-7 top-12 justify-left absolute">
-                    <form action="/main" >
+                    <form action="/main" onSubmit={handleSubmit}>
                         <label for="destination" className='text font-bold text-zinc-700' >What is your preferred destination?   </label>
                         <select id="destination" name="destination" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500'>
                             <option value="city">City</option>
@@ -88,7 +100,7 @@ const Modal = ({ open, onClose }) => {
                         <label for="fname" className='flex-auto font-bold text-zinc-700' >Any other preferences or requests for your trip?</label>
                         <input type="Text" className='border p-5 font-bold rounded-lg shadow bg-amber-50 text-red-500' id="special requests" name="SpecialRequests" /><br />
 
-                        <input type="submit" className='submit p-2 font-bold bg-zinc-700 text-amber-100 rounded-lg shadow' value="Get Recommendations" />
+                        <input type="submit"  className='submit p-2 font-bold bg-zinc-700 text-amber-100 rounded-lg shadow' value="Get Recommendations" />
                     </form>
 
                 </div>
