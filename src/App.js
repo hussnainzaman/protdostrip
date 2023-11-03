@@ -1,4 +1,4 @@
-import React, { useState,} from 'react';
+import React, { useState} from 'react';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
 import Account from './components/Account';
@@ -6,14 +6,14 @@ import { Route, Routes } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import ForgotPassword from './components/ForgotPassword';
-import Home from './components/Home'
-import Landing from './components/Landing'
+import Home from './components/Home';
+import Landing from './components/Landing';
 import Modal from './components/Modal';
+import Form from './components/Form';
 //import { ReactComponent as logo } from './dostrip-logo.svg';
 
 
 function App() {
- 
 
   return (
     <div>
@@ -44,6 +44,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Modal />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/form'
+            element={
+              <ProtectedRoute>
+                <Form />
               </ProtectedRoute>
             }
           />

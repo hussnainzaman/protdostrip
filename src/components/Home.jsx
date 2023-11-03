@@ -70,13 +70,13 @@ const Home = () => {
             Coming Soon! Our Team is working with partners to bring you a unique experience.
           </Popup>
           <button onClick={() => setOpenModal(true)} className='modalButton  bg-red-400 hover:bg-teal-600 w-[400px] p-4 my-2 text-amber-100  text-base font-bold rounded-lg shadow'>
-              Start Questionnaire...!
-            </button>
+            Start Questionnaire...!
+          </button>
         </div>
-        <div className="modal  top-[50px] left-[300px] flex justify-center absolute z-index "> 
-        <Modal  open={openModal} onClose={() => setOpenModal(false)} />
+        <div className="modal  top-[50px] left-[300px] flex justify-center absolute z-index ">
+          <Modal open={openModal} onClose={() => setOpenModal(false)} />
         </div>
-       
+
         <div class="Rectangle h-20 left-0 top-0  bg-red-400 text-center p-6 text-white">
           This application is built for project purposes and not to be run commercially.<br />
           Brought you by: Hussnain, Krintan, Muskan, and Abhishek
