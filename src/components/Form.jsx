@@ -6,7 +6,7 @@ const Form = () => {
 
     return (
         <div onClick={(e) => { e.stopPropagation(); }} className="form  left-7 top-12 justify-left absolute">
-                    <form >
+                    <form action="/main" >
                         <label for="destination" className='text font-bold text-zinc-700' >What is your preferred destination?   </label>
                         <select id="destination" name="destination" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500'>
                             <option value="city">City</option>
