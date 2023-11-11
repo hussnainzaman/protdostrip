@@ -25,9 +25,9 @@ const Modal = ({ open, onClose }) => {
                     X
                 </button>
                 <div onClick={(e) => { e.stopPropagation(); }} className="form  left-7 top-12 justify-left absolute">
-                    <form action="/main" onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} >
                         <label for="destination" className='text font-bold text-zinc-700' >What is your preferred destination?   </label>
-                        <select id="destination" name="destination" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500'>
+                        <select id="destination" name="destination" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500' >
                             <option value="city">City</option>
                             <option value="beach">Beach</option>
                             <option value="mountains">Mountains</option>
