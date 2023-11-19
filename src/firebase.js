@@ -2,10 +2,13 @@
 import { initializeApp } from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import {getFirestore} from 'firebase/firestore';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBOb1mGak7Ifp-QgL6fVOXknJ8kmccnbUo",
   authDomain: "dostrip-f1b21.firebaseapp.com",
+  databaseURL: "https://dostrip-f1b21-default-rtdb.firebaseio.com",
   projectId: "dostrip-f1b21",
   storageBucket: "dostrip-f1b21.appspot.com",
   messagingSenderId: "175276502848",
@@ -17,5 +20,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 //const analytics = getAnalytics(app);
 export default app

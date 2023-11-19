@@ -6,6 +6,8 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
 } from 'firebase/auth';
+
+
 import { auth } from '../firebase';
 
 const UserContext = createContext();
@@ -13,9 +15,10 @@ const UserContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
+
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
-  };
+  }
 
    const signIn = (email, password) =>  {
     return signInWithEmailAndPassword(auth, email, password)
@@ -40,7 +43,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ createUser, user, logout, signIn, forgotPassword }}>
+    <UserContext.Provider value={{ createUser, user, logout, signIn, forgotPassword}}>
       {children}
     </UserContext.Provider>
   );
