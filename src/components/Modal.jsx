@@ -1,6 +1,7 @@
-import React,  { useRef }from 'react';
+import React, { useRef } from 'react';
 import bg from './images/img005.png';
-import { collection,addDoc,setDoc,doc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom'; 
+import { collection, addDoc, setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import { UserAuth } from '../context/AuthContext';
 
@@ -10,10 +11,11 @@ import { UserAuth } from '../context/AuthContext';
 //     country: "USA"
 //   });
 
-  
+
 const Modal = ({ open, onClose }) => {
 
-    const {user} = UserAuth();
+    const navigate = useNavigate();
+    const { user } = UserAuth();
     const destinationRef = useRef(null);
     const countryRef = useRef(null);
     const purposeRef = useRef(null);
@@ -21,52 +23,80 @@ const Modal = ({ open, onClose }) => {
     const accommodationRef = useRef(null);
     const tripDurationRef = useRef(null);
     const numberOfTravelersRef = useRef(null);
-    const accessibilityRef = useRef(null);
+    //const accessibilityRef = useRef(null);
     const dietaryRequirementsRef = useRef(null);
     const specialRequestsRef = useRef(null);
-   
+
     const handleSubmit = async (e) => {
-           e.preventDefault();
-              var activitiesArray = Array.from(document.querySelectorAll('input[name="activities"]:checked')).map(checkbox => checkbox.value);
-              var activitieS = activitiesArray.join('&');
+        e.preventDefault();
+        var activitiesArray = Array.from(document.querySelectorAll('input[name="activities"]:checked')).map(checkbox => checkbox.value);
+        var activitieS = activitiesArray.join('&');
+
+
 
         try {
-          const destination = destinationRef.current.value;
-          const country = countryRef.current.value;
-          const purpose = purposeRef.current.value;
-          const budget = budgetRef.current.value;
-          const accommodation = accommodationRef.current.value;
-          const activities = activitieS;
-          const tripDuration = tripDurationRef.current.value;
-          const numberOfTravelers = numberOfTravelersRef.current.value;
-          const accessibility = accessibilityRef.current.value;
-          const dietaryRequirements = dietaryRequirementsRef.current.value;
-          const specialRequests = specialRequestsRef.current.value;
-    
-          const docRef = await addDoc(collection(doc(db, 'userFormData', user.email), 'SearchHistory'), {
-            destination,
-            country,
-            purpose,
-            budget,
-            accommodation,
-            activities,
-            tripDuration,
-            numberOfTravelers,
-            accessibility,
-            dietaryRequirements,
-            specialRequests,
-          });
-          
-          console.log('Document added to SearchHistory subcollection with ID:', docRef.id);
-          
-          
-          console.log('Document written to SearchHistory subcollection:', docRef.id);
-    
+            const destination = destinationRef.current.value;
+            const country = countryRef.current.value;
+            const purpose = purposeRef.current.value;
+            const budget = budgetRef.current.value;
+            const accommodation = accommodationRef.current.value;
+            const activities = activitieS;
+            const tripDuration = tripDurationRef.current.value;
+            const numberOfTravelers = numberOfTravelersRef.current.value;
+            // const accessibility = accessibilityRef.current.value;
+            const dietaryRequirements = dietaryRequirementsRef.current.value;
+            var specialRequests = specialRequestsRef.current.value;
+
+            var PmtIN;
+
+            if (specialRequests === "") {
+                PmtIN = "Plan a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
+                    + purpose + ". However, I have " + budget + ' budget.' + " and I am intrested in activities of " + activities + ". I will prefer " + accommodation + "accomodation for staying." + ' Please Plan trip for ' + tripDuration + " days for " + numberOfTravelers + " people. "
+                    + 'I ' + dietaryRequirements + ' have dietry requirements. ' + "Also Suggest me some good accomodations for stay and best way to travel";
+            }
+            else {
+                specialRequests = " I have special requests like, " + specialRequests;
+                PmtIN = "Plan a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
+                    + purpose + ". However, I have " + budget + ' budget.' + " and I am intrested in activities of " + activities + ". I will prefer " + accommodation + "accomodation for staying." + ' Please Plan trip for ' + tripDuration + " days for " + numberOfTravelers + " people. "
+                    + 'I ' + dietaryRequirements + ' have dietry requirements. ' + "Also Suggest me some good accomodations for stay and best way to travel" + specialRequests;
+
+            };
+            const docRef = await addDoc(collection(doc(db, 'userFormData', user.email), 'SearchHistory'), {
+                destination,
+                country,
+                purpose,
+                budget,
+                accommodation,
+                activities,
+                tripDuration,
+                numberOfTravelers,
+                dietaryRequirements,
+                specialRequests,
+                PmtIN,
+                timestamp: serverTimestamp(),
+            });
+            const searchref = docRef.id;
+            const requstee = user.email;
+            const docRef1 = await addDoc(collection(doc(db, 'userFormData', user.email), 'PmtRES_GEN'), {
+                searchref,
+                PmtIN,
+                requstee,
+                timestamp: serverTimestamp(),
+            });
+
+
+            e.target.reset();
+            
+            console.log('Document added to SearchHistory subcollection with ID:', docRef.id);
+            console.log('Promt added to prmtinout subcollection with ID:', docRef1.id);
+            navigate('/result');
+
+
         } catch (error) {
-          console.error('Error submitting form data:', error.message);
+            console.error('Error submitting form data:', error.message);
         }
-      };
-    
+    };
+
     if (!open) return null;
     return (
         <div onClick={onClose} className='overlay flex  w-[800px] h-[500px] '>
@@ -103,7 +133,7 @@ const Modal = ({ open, onClose }) => {
                         </select><br />
 
                         <label for="budget" className='text font-bold text-zinc-700'>What is your budget range?  </label>
-                        <select ref={budgetRef} id="budget" name="budget" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500' > 
+                        <select ref={budgetRef} id="budget" name="budget" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500' >
                             <option value="low">Low budget</option>
                             <option value="mid-range">Mid-range</option>
                             <option value="luxury">Luxury</option>
@@ -119,36 +149,37 @@ const Modal = ({ open, onClose }) => {
                         </select><br />
 
                         <p className='text font-bold text-zinc-700'>What activities are you interested in? (Please select max 2)</p>
-                        <input  type="checkbox" id="sightseeing" name="activities" value="sightseeing" />
+                        <input type="checkbox" id="sightseeing" name="activities" value="sightseeing" />
                         <label for="sightseeing" className='p-2 text-amber-800'>Sightseeing</label>
-                        <input  type="checkbox" id="hiking" name="activities" value="hiking" />
+                        <input type="checkbox" id="hiking" name="activities" value="hiking" />
                         <label for="hiking" className='p-2 text-amber-800'>Hiking/Outdoor activities </label>
-                        <input  type="checkbox" id="Shopping" name="activities" value="Shopping" />
+                        <input type="checkbox" id="Shopping" name="activities" value="Shopping" />
                         <label for="Shopping" className='p-2 text-amber-800'>Shopping </label><br />
-                        <input  type="checkbox" id="Local Cusine Tasting" name="activities" value="LocalFood" />
+                        <input type="checkbox" id="Local Cusine Tasting" name="activities" value="LocalFood" />
                         <label for="Food" className='p-2 text-amber-800'>Local Cusine Tasting </label>
-                        <input  type="checkbox" id="Museums and Cultural sites" name="activities" value="HistoricalSites" />
+                        <input type="checkbox" id="Museums and Cultural sites" name="activities" value="HistoricalSites" />
                         <label for="History" className='p-2 text-amber-800'>Museums and Cultural Sites </label>
                         <input type="checkbox" id="NightLife" name="activities" value="NightLife" />
                         <label for="Life" className='p-2 text-amber-800'>Night Life </label><br />
-                        <br/>
+                        <br />
 
                         <label for="fname" className='text font-bold text-zinc-700'>How long is your trip?(Number of Days)   </label>
-                        <input ref={tripDurationRef} type="number" className='border p-0 w-10 font-bold rounded-lg shadow bg-amber-50 text-red-500' id="tripDuration" name="TripDuration" required/><br />
+                        <input ref={tripDurationRef} type="number" className='border p-0 w-10 font-bold rounded-lg shadow bg-amber-50 text-red-500' id="tripDuration" name="TripDuration" required /><br />
 
                         <label for="fname" className='text font-bold text-zinc-700'>Are you traveling alone or with others?(Please specify the number of travelers)  </label>
                         <input ref={numberOfTravelersRef} type="number" className='border p-0 w-10 font-bold rounded-lg shadow bg-amber-50 text-red-500' id="numberofTravelers" name="numberofTravelers" /><br />
 
-                        <label for="accessibility" className='text font-bold text-zinc-700'>Do you need any special accessibility accommodations?</label>
+                        {/* {  <label for="accessibility" className='text font-bold text-zinc-700'>Do you need any special accessibility accommodations?</label>
                         <select ref={accessibilityRef} id="accessibility" name="accessibility" className='border p-0 w-20 font-bold rounded-lg shadow bg-amber-50 text-red-500'>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select><br />
+                            <option value="do not">No</option>
+                            <option value="do">Yes</option>
+                            
+                        </select><br />} */}
 
                         <label for="dietary requirements" className='text font-bold text-zinc-700'>Do you have any specific dietary requirements or restrictions?</label>
                         <select ref={dietaryRequirementsRef} id="dietaryRequirements" name="dietary" className='border p-0 w-20 font-bold rounded-lg shadow bg-amber-50 text-red-500'>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
+                            <option value="do not">No</option>
+                            <option value="do">Yes</option>
                         </select><br />
 
                         <label for="fname" className='flex-auto font-bold text-zinc-700' >Any other preferences or requests for your trip?</label>
@@ -164,4 +195,4 @@ const Modal = ({ open, onClose }) => {
     );
 };
 
-export default Modal;
+export default Modal;
