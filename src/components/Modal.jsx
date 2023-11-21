@@ -1,30 +1,72 @@
-import React from 'react';
+import React,  { useRef }from 'react';
 import bg from './images/img005.png';
 import { collection,addDoc,setDoc,doc } from 'firebase/firestore';
 import { db } from '../firebase';
+import { UserAuth } from '../context/AuthContext';
 
-await setDoc(doc(db, 'cities','SF'), {
-    name: "San Fransicsco",
-    state: "CA",
-    country: "USA"
-  });
+// await setDoc(doc(db, 'cities','SF'), {
+//     name: "San Fransicsco",
+//     state: "CA",
+//     country: "USA"
+//   });
+
   
 const Modal = ({ open, onClose }) => {
 
-  
+    const {user} = UserAuth();
+    const destinationRef = useRef(null);
+    const countryRef = useRef(null);
+    const purposeRef = useRef(null);
+    const budgetRef = useRef(null);
+    const accommodationRef = useRef(null);
+    const tripDurationRef = useRef(null);
+    const numberOfTravelersRef = useRef(null);
+    const accessibilityRef = useRef(null);
+    const dietaryRequirementsRef = useRef(null);
+    const specialRequestsRef = useRef(null);
+   
+    const handleSubmit = async (e) => {
+           e.preventDefault();
+              var activitiesArray = Array.from(document.querySelectorAll('input[name="activities"]:checked')).map(checkbox => checkbox.value);
+              var activitieS = activitiesArray.join('&');
 
-    const handleSubmit = async () => {
         try {
-           
-          //const output ="sucess"
-          console.log('You have filled the data', )
-          window.open('result','Form Submitted','toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=500,left = 312,top = 234' );
-          //open.document.write(output);
-        } catch (e) {
-          console.log(e.message);
+          const destination = destinationRef.current.value;
+          const country = countryRef.current.value;
+          const purpose = purposeRef.current.value;
+          const budget = budgetRef.current.value;
+          const accommodation = accommodationRef.current.value;
+          const activities = activitieS;
+          const tripDuration = tripDurationRef.current.value;
+          const numberOfTravelers = numberOfTravelersRef.current.value;
+          const accessibility = accessibilityRef.current.value;
+          const dietaryRequirements = dietaryRequirementsRef.current.value;
+          const specialRequests = specialRequestsRef.current.value;
+    
+          const docRef = await addDoc(collection(doc(db, 'userFormData', user.email), 'SearchHistory'), {
+            destination,
+            country,
+            purpose,
+            budget,
+            accommodation,
+            activities,
+            tripDuration,
+            numberOfTravelers,
+            accessibility,
+            dietaryRequirements,
+            specialRequests,
+          });
+          
+          console.log('Document added to SearchHistory subcollection with ID:', docRef.id);
+          
+          
+          console.log('Document written to SearchHistory subcollection:', docRef.id);
+    
+        } catch (error) {
+          console.error('Error submitting form data:', error.message);
         }
       };
-
+    
     if (!open) return null;
     return (
         <div onClick={onClose} className='overlay flex  w-[800px] h-[500px] '>
@@ -36,9 +78,9 @@ const Modal = ({ open, onClose }) => {
                     X
                 </button>
                 <div onClick={(e) => { e.stopPropagation(); }} className="form  left-7 top-12 justify-left absolute">
-                    <form action="/main" onSubmit={handleSubmit}>
+                    <form action="/main" onSubmit={(e) => handleSubmit(e)}>
                         <label for="destination" className='text font-bold text-zinc-700' >What is your preferred destination?   </label>
-                        <select id="destination" name="destination" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500'>
+                        <select ref={destinationRef} id="destination" name="destination" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500'>
                             <option value="city">City</option>
                             <option value="beach">Beach</option>
                             <option value="mountains">Mountains</option>
@@ -47,12 +89,12 @@ const Modal = ({ open, onClose }) => {
                         </select><br />
 
                         <label for="country" className='text font-bold text-zinc-700'>What is your preferred Country?   </label>
-                        <select id="country" name="country" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500'>
-                            <option value="city">Canada</option>
+                        <select ref={countryRef} id="country" name="country" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500'>
+                            <option value="Canada">Canada</option>
                         </select><br />
 
                         <label for="purpose" className='text font-bold text-zinc-700'>What is the purpose of your travel?    </label>
-                        <select id="purpose" name="purpose" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500'>
+                        <select ref={purposeRef} id="purpose" name="purpose" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500'>
                             <option value="leisure">Leisure</option>
                             <option value="business">Business</option>
                             <option value="adventure">Adventure</option>
@@ -61,57 +103,59 @@ const Modal = ({ open, onClose }) => {
                         </select><br />
 
                         <label for="budget" className='text font-bold text-zinc-700'>What is your budget range?  </label>
-                        <select id="budget" name="budget" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500' > 
+                        <select ref={budgetRef} id="budget" name="budget" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500' > 
                             <option value="low">Low budget</option>
                             <option value="mid-range">Mid-range</option>
                             <option value="luxury">Luxury</option>
                         </select><br />
 
                         <label for="accommodation" className='text font-bold text-zinc-700'>What type of accommodation do you prefer?    </label>
-                        <select id="accommodation" name="accommodation" className='border p-0 w-auto font-bold rounded-lg shadow  bg-amber-50 text-red-500'>
+                        <select ref={accommodationRef} id="accommodation" name="accommodation" className='border p-0 w-auto font-bold rounded-lg shadow  bg-amber-50 text-red-500'>
                             <option value="hotel">Hotel</option>
                             <option value="hostel">Hostel</option>
-                            <option value="bnb">Bed & Breakfast</option>
+                            <option value="Bed & Breakfast">Bed & Breakfast</option>
                             <option value="apartment">Apartment Rental</option>
                             <option value="other">Other</option>
                         </select><br />
 
                         <p className='text font-bold text-zinc-700'>What activities are you interested in? (Please select max 2)</p>
-                        <input type="checkbox" id="sightseeing" name="activities" value="sightseeing" />
+                        <input  type="checkbox" id="sightseeing" name="activities" value="sightseeing" />
                         <label for="sightseeing" className='p-2 text-amber-800'>Sightseeing</label>
-                        <input type="checkbox" id="hiking" name="activities" value="hiking" />
+                        <input  type="checkbox" id="hiking" name="activities" value="hiking" />
                         <label for="hiking" className='p-2 text-amber-800'>Hiking/Outdoor activities </label>
-                        <input type="checkbox" id="Shopping" name="activities" value="Shopping" />
-                        <label for="hiking" className='p-2 text-amber-800'>Shopping </label><br />
-                        <input type="checkbox" id="Local Cusine Tasting" name="activities" value="LocalFood" />
-                        <label for="hiking" className='p-2 text-amber-800'>Local Cusine Tasting </label>
-                        <input type="checkbox" id="Museums and Cultural sites" name="activities" value="HistoricalSites" />
-                        <label for="hiking" className='p-2 text-amber-800'>Museums and Cultural Sites </label>
+                        <input  type="checkbox" id="Shopping" name="activities" value="Shopping" />
+                        <label for="Shopping" className='p-2 text-amber-800'>Shopping </label><br />
+                        <input  type="checkbox" id="Local Cusine Tasting" name="activities" value="LocalFood" />
+                        <label for="Food" className='p-2 text-amber-800'>Local Cusine Tasting </label>
+                        <input  type="checkbox" id="Museums and Cultural sites" name="activities" value="HistoricalSites" />
+                        <label for="History" className='p-2 text-amber-800'>Museums and Cultural Sites </label>
                         <input type="checkbox" id="NightLife" name="activities" value="NightLife" />
-                        <label for="hiking" className='p-2 text-amber-800'>Night Life </label><br />
+                        <label for="Life" className='p-2 text-amber-800'>Night Life </label><br />
+                        <br/>
 
                         <label for="fname" className='text font-bold text-zinc-700'>How long is your trip?(Number of Days)   </label>
-                        <input type="number" className='border p-0 w-10 font-bold rounded-lg shadow bg-amber-50 text-red-500' id="trip duration" name="TripDuration" required/><br />
+                        <input ref={tripDurationRef} type="number" className='border p-0 w-10 font-bold rounded-lg shadow bg-amber-50 text-red-500' id="tripDuration" name="TripDuration" required/><br />
 
                         <label for="fname" className='text font-bold text-zinc-700'>Are you traveling alone or with others?(Please specify the number of travelers)  </label>
-                        <input type="number" className='border p-0 w-10 font-bold rounded-lg shadow bg-amber-50 text-red-500' id="trip duration" name="TripDuration" /><br />
+                        <input ref={numberOfTravelersRef} type="number" className='border p-0 w-10 font-bold rounded-lg shadow bg-amber-50 text-red-500' id="numberofTravelers" name="numberofTravelers" /><br />
 
                         <label for="accessibility" className='text font-bold text-zinc-700'>Do you need any special accessibility accommodations?</label>
-                        <select id="aaccessibility" name="accessibility" className='border p-0 w-20 font-bold rounded-lg shadow bg-amber-50 text-red-500'>
+                        <select ref={accessibilityRef} id="accessibility" name="accessibility" className='border p-0 w-20 font-bold rounded-lg shadow bg-amber-50 text-red-500'>
                             <option value="yes">Yes</option>
                             <option value="no">No</option>
                         </select><br />
 
                         <label for="dietary requirements" className='text font-bold text-zinc-700'>Do you have any specific dietary requirements or restrictions?</label>
-                        <select id="dietary requirements" name="dietary" className='border p-0 w-20 font-bold rounded-lg shadow bg-amber-50 text-red-500'>
+                        <select ref={dietaryRequirementsRef} id="dietaryRequirements" name="dietary" className='border p-0 w-20 font-bold rounded-lg shadow bg-amber-50 text-red-500'>
                             <option value="yes">Yes</option>
                             <option value="no">No</option>
                         </select><br />
 
                         <label for="fname" className='flex-auto font-bold text-zinc-700' >Any other preferences or requests for your trip?</label>
-                        <input type="Text" className='border p-5 font-bold rounded-lg shadow bg-amber-50 text-red-500' id="special requests" name="SpecialRequests" /><br />
+                        <input ref={specialRequestsRef} type="Text" className='border p-5 font-bold rounded-lg shadow bg-amber-50 text-red-500' id="specialRequests" name="SpecialRequests" /><br />
 
-                        <input type="submit"  className='submit p-2 font-bold bg-zinc-700 text-amber-100 rounded-lg shadow' value="Get Recommendations" />
+                        {/* <input type="submit"  className='submit p-2 font-bold bg-zinc-700 text-amber-100 rounded-lg shadow'  /> */}
+                        <button type="submit" className='submit p-2 font-bold bg-zinc-700 text-amber-100 rounded-lg shadow' >Submit</button>
                     </form>
 
                 </div>
@@ -120,4 +164,4 @@ const Modal = ({ open, onClose }) => {
     );
 };
 
-export default Modal;
+export default Modal;
