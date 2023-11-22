@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import bg from './images/img005.png';
 import { useNavigate } from 'react-router-dom'; 
-import { collection, addDoc, setDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, setDoc, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { UserAuth } from '../context/AuthContext';
 
@@ -47,18 +47,18 @@ const Modal = ({ open, onClose }) => {
             const dietaryRequirements = dietaryRequirementsRef.current.value;
             var specialRequests = specialRequestsRef.current.value;
 
-            var PmtIN;
+            var prompt;
 
             if (specialRequests === "") {
-                PmtIN = "Plan a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
+                prompt = "Plan a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
                     + purpose + ". However, I have " + budget + ' budget.' + " and I am intrested in activities of " + activities + ". I will prefer " + accommodation + "accomodation for staying." + ' Please Plan trip for ' + tripDuration + " days for " + numberOfTravelers + " people. "
                     + 'I ' + dietaryRequirements + ' have dietry requirements. ' + "Also Suggest me some good accomodations for stay and best way to travel";
             }
             else {
                 specialRequests = " I have special requests like, " + specialRequests;
-                PmtIN = "Plan a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
-                    + purpose + ". However, I have " + budget + ' budget.' + " and I am intrested in activities of " + activities + ". I will prefer " + accommodation + "accomodation for staying." + ' Please Plan trip for ' + tripDuration + " days for " + numberOfTravelers + " people. "
-                    + 'I ' + dietaryRequirements + ' have dietry requirements. ' + "Also Suggest me some good accomodations for stay and best way to travel" + specialRequests;
+                prompt = "Plan a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
+                    + purpose + ". However, I have " + budget + ' budget.' + " and I am intrested in activities of " + activities + ". I will prefer " + accommodation + " accomodation for staying." + ' Please Plan trip for ' + tripDuration + " days for " + numberOfTravelers + " people. "
+                    + 'I ' + dietaryRequirements + ' have speical dietry requirements. ' + "Also Suggest me some good places for stay and best way to travel" + specialRequests;
 
             };
             const docRef = await addDoc(collection(doc(db, 'userFormData', user.email), 'SearchHistory'), {
@@ -72,16 +72,13 @@ const Modal = ({ open, onClose }) => {
                 numberOfTravelers,
                 dietaryRequirements,
                 specialRequests,
-                PmtIN,
                 timestamp: serverTimestamp(),
             });
             const searchref = docRef.id;
-            const requstee = user.email;
+            //const requstee = user.email;
             const docRef1 = await addDoc(collection(doc(db, 'userFormData', user.email), 'PmtRES_GEN'), {
                 searchref,
-                PmtIN,
-                requstee,
-                timestamp: serverTimestamp(),
+                prompt,
             });
 
 
@@ -97,7 +94,7 @@ const Modal = ({ open, onClose }) => {
         }
     };
 
-    if (!open) return null;
+   if (!open) return null;
     return (
         <div onClick={onClose} className='overlay flex  w-[800px] h-[500px] '>
             <div onClick={(e) => { e.stopPropagation(); }} className='modalContainer'>

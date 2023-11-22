@@ -32,7 +32,7 @@ const Signup = () => {
               </Link>
             </button>
           </div>
-          <button className="homebutton w-28 h-8 left-[40px] top-[20px] absolute">
+          <button className="homebutton w-28 h-8 left-[40px] top-[26px] absolute">
             <Link to='/'>
               <img className="image w-220 h-200 " src={require("./images/homologo.png")} alt='logo' />
             </Link>
