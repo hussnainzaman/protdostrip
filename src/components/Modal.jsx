@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import bg from './images/img005.png';
 import { useNavigate } from 'react-router-dom'; 
-import { collection, addDoc, setDoc, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, serverTimestamp, updateDoc} from 'firebase/firestore';
 import { db } from '../firebase';
 import { UserAuth } from '../context/AuthContext';
 
@@ -79,6 +79,12 @@ const Modal = ({ open, onClose }) => {
             const docRef1 = await addDoc(collection(doc(db, 'userFormData', user.email), 'PmtRES_GEN'), {
                 searchref,
                 prompt,
+            });
+
+            var tempdata = docRef1.id;
+            const dbref = doc(db,"tempVar","tempval")
+            await updateDoc(dbref, {
+                tempdata,
             });
 
 

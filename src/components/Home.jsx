@@ -45,7 +45,7 @@ const Home = () => {
             <img className="image w-220 h-200 " src={require("./images/homologo.png")} alt='logo' />
           </Link>
         </button>
-        <button className="navbtn2 left-[1030px] top-[30px] absolute text-amber-100  text-xl font-semibold font-['Nunito']">Help?</button>
+        {/* <button className="navbtn2 left-[1030px] top-[30px] absolute text-amber-100  text-xl font-semibold font-['Nunito']">Help?</button> */}
       </div>
       <div className="Header mx-auto my-auto absolute">
         <div className="MaskGroup w-50 h-auto left-0 top-0">
