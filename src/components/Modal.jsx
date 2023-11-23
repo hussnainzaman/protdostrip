@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import bg from './images/img005.png';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { collection, addDoc, doc, serverTimestamp, updateDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import { UserAuth } from '../context/AuthContext';
@@ -8,7 +8,7 @@ import { UserAuth } from '../context/AuthContext';
 
 const Modal = ({ open, onClose }) => {
 
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const { user } = UserAuth();
     const destinationRef = useRef(null);
     const countryRef = useRef(null);
@@ -87,7 +87,7 @@ const Modal = ({ open, onClose }) => {
                 const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
                 const dataL = doc.data();
                 const resp = dataL.response;
-                console.log('Promt added to prmtinout subcollection with ID:', resp);
+                console.log('Promt added to prmtinout subcollection with ID:', resp, listen, source);
             });
 
 

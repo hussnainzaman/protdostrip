@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 
 const ForgotPassword = () => {
@@ -16,7 +16,7 @@ const ForgotPassword = () => {
         navigate('/')
       } catch (e) {
         setError(e.message)
-        console.log(e.message)
+        console.log(e.message, error)
       }
     };
   

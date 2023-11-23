@@ -33,7 +33,7 @@ const Signin = () => {
       navigate('/signin')
     } catch (e) {
       setError(e.message)
-      console.log(e.message)
+      console.log(e.message,error)
     }
   };
   return (

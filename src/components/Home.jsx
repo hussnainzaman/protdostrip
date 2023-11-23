@@ -10,7 +10,7 @@ const Home = () => {
 
   const [openModal, setOpenModal] = useState(false);
   const { user, logout } = UserAuth();
-  const [error, setError] = useState('');
+//  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogout = async () => {

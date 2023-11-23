@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { doc, getDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase';
 import { UserAuth } from '../context/AuthContext';
-import Modal from './Modal';
+
 
 
 const Output = () => {
