@@ -16,7 +16,7 @@ const Output = () => {
 
     const dbref = doc(collection(db, 'tempVar'), "tempval");
     const docS = await getDoc(dbref);
-    var data = docS.data();
+    data = docS.data();
     console.log(data.tempdata);
 
 
@@ -27,7 +27,7 @@ const Output = () => {
       if (docSnap.exists()) {
         data = docSnap.data();
         setResponseData(data.response);
-        console.log("Document data:", data.response);
+        console.log("Document data:", responseData);
       } else {
         console.log("No such document!");
       }

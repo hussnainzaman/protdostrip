@@ -1,15 +1,9 @@
 import React, { useRef } from 'react';
 import bg from './images/img005.png';
-import { useNavigate } from 'react-router-dom'; 
-import { collection, addDoc, doc, serverTimestamp, updateDoc} from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { collection, addDoc, doc, serverTimestamp, updateDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import { UserAuth } from '../context/AuthContext';
-
-// await setDoc(doc(db, 'cities','SF'), {
-//     name: "San Fransicsco",
-//     state: "CA",
-//     country: "USA"
-//   });
 
 
 const Modal = ({ open, onClose }) => {
@@ -30,7 +24,7 @@ const Modal = ({ open, onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         var activitiesArray = Array.from(document.querySelectorAll('input[name="activities"]:checked')).map(checkbox => checkbox.value);
-        var activitieS = activitiesArray.join('&');
+        var activitieS = activitiesArray.join(' & ');
 
 
 
@@ -51,16 +45,17 @@ const Modal = ({ open, onClose }) => {
 
             if (specialRequests === "") {
                 prompt = "Plan a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
-                    + purpose + ". However, I have " + budget + ' budget.' + " and I am intrested in activities of " + activities + ". I will prefer " + accommodation + "accomodation for staying." + ' Please Plan trip for ' + tripDuration + " days for " + numberOfTravelers + " people. "
-                    + 'I ' + dietaryRequirements + ' have dietry requirements. ' + "Also Suggest me some good accomodations for stay and best way to travel";
+                    + purpose + ". However, I have " + budget + " budget. and also I am intrested in activities of " + activities + ". I will prefer " + accommodation + "accomodation for staying. Please Plan trip for " + tripDuration + " days for " + numberOfTravelers + " people. "
+                    + 'I ' + dietaryRequirements + "have dietry requirements. Also Suggest me some good accomodations for stay and best way to travel";
             }
             else {
                 specialRequests = " I have special requests like, " + specialRequests;
                 prompt = "Plan a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
-                    + purpose + ". However, I have " + budget + ' budget.' + " and I am intrested in activities of " + activities + ". I will prefer " + accommodation + " accomodation for staying." + ' Please Plan trip for ' + tripDuration + " days for " + numberOfTravelers + " people. "
-                    + 'I ' + dietaryRequirements + ' have speical dietry requirements. ' + "Also Suggest me some good places for stay and best way to travel" + specialRequests;
+                    + purpose + ". However, I have " + budget + 'budget. and I am intrested in activities of' + activities + ". I will prefer " + accommodation + " accomodation for staying. Please Plan trip for " + tripDuration + " days for " + numberOfTravelers + " people. "
+                    + 'I ' + dietaryRequirements + " have speical dietry requirements. Also Suggest me some good places for stay and best way to travel" + specialRequests;
 
             };
+
             const docRef = await addDoc(collection(doc(db, 'userFormData', user.email), 'SearchHistory'), {
                 destination,
                 country,
@@ -74,6 +69,7 @@ const Modal = ({ open, onClose }) => {
                 specialRequests,
                 timestamp: serverTimestamp(),
             });
+
             const searchref = docRef.id;
             //const requstee = user.email;
             const docRef1 = await addDoc(collection(doc(db, 'userFormData', user.email), 'PmtRES_GEN'), {
@@ -82,25 +78,35 @@ const Modal = ({ open, onClose }) => {
             });
 
             var tempdata = docRef1.id;
-            const dbref = doc(db,"tempVar","tempval")
+            const dbref = doc(db, "tempVar", "tempval")
             await updateDoc(dbref, {
                 tempdata,
             });
 
+            const listen = onSnapshot(doc(db, 'userFormData', user.email, 'PmtRES_GEN', tempdata), (doc) => {
+                const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+                const dataL = doc.data();
+                const resp = dataL.response;
+                console.log('Promt added to prmtinout subcollection with ID:', resp);
+            });
+
 
             e.target.reset();
-            
+
             console.log('Document added to SearchHistory subcollection with ID:', docRef.id);
             console.log('Promt added to prmtinout subcollection with ID:', docRef1.id);
-            navigate('/result');
 
 
-        } catch (error) {
+            //navigate('/result');
+
+
+        }
+        catch (error) {
             console.error('Error submitting form data:', error.message);
         }
     };
 
-   if (!open) return null;
+    if (!open) return null;
     return (
         <div onClick={onClose} className='overlay flex  w-[800px] h-[500px] '>
             <div onClick={(e) => { e.stopPropagation(); }} className='modalContainer'>
