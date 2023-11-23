@@ -8,10 +8,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ForgotPassword from './components/ForgotPassword';
 import Home from './components/Home';
 import Landing from './components/Landing';
-//import Modal from './components/Modal';
-//import Form from './components/Form';
 import Output from './components/Output';
-//import { ReactComponent as logo } from './dostrip-logo.svg';
+
 
 
 function App() {
