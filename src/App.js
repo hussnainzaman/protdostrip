@@ -9,7 +9,7 @@ import ForgotPassword from './components/ForgotPassword';
 import Home from './components/Home';
 import Landing from './components/Landing';
 import Output from './components/Output';
-
+import Redirect from './components/Redirect';
 
 
 function App() {
@@ -61,6 +61,16 @@ function App() {
                 <Output />
               </ProtectedRoute>
             }
+            
+          />
+           <Route
+            path='/wait'
+            element={
+              <ProtectedRoute>
+                <Redirect />
+              </ProtectedRoute>
+            }
+            
           />
         </Routes>
       </AuthContextProvider>

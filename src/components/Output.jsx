@@ -3,41 +3,51 @@ import { Link } from 'react-router-dom';
 import { doc, getDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase';
 import { UserAuth } from '../context/AuthContext';
+import Modal from './Modal'
 
 
 
-const Output = () => {
+const Output = (e) => {
   const { user } = UserAuth();
+  const [openModal, setOpenModal] = useState(false);
   const [responseData, setResponseData] = useState('');
+  //const [StatusData, setStatusData] = useState('');
 
-  var data;
+  var data = "";
+
+
   const fetchData = async () => {
-
 
     const dbref = doc(collection(db, 'tempVar'), "tempval");
     const docS = await getDoc(dbref);
     data = docS.data();
-    console.log(data.tempdata);
+    const refdata = data.tempdata;
+    console.log(refdata);
 
-
-    const collectionRef = doc(collection(db, 'userFormData', user.email, 'PmtRES_GEN'), data.tempdata);
+    const collectionRef = doc(collection(db, 'userFormData', user.email, 'PmtRES_GEN'), refdata);
     const docSnap = await getDoc(collectionRef);
 
     try {
+
       if (docSnap.exists()) {
         data = docSnap.data();
+        // setStatusData(data.status.state);
         setResponseData(data.response);
         console.log("Document data:", responseData);
-      } else {
+        // console.log("Document data:", StatusData);
+
+
+      }
+      else {
         console.log("No such document!");
       }
 
     } catch (error) {
       console.error('Error fetching data from Firestore:', error);
     }
-  };
 
-  fetchData();
+  }
+
 
   return (
     <div className='home w-[1400px] mx-auto my-auto '>
@@ -55,20 +65,26 @@ const Output = () => {
         </button>
       </div>
       <div class name=" response square left-[900px] w-[400px] h-[400px] top-[90px] absolute">
-          <p>{responseData}</p>
+        {<p>{responseData}</p>}
       </div>
       <div className="Header mx-auto my-auto absolute">
         <div className="MaskGroup w-50 h-auto left-0 top-0">
           <img className="image w-200 h-200 " src={require("./images/img006.png")} alt='pic by freepik' />
-          
+
         </div>
-        
+
         <div className="Rectangle left-[900px] w-[400px] h-[400px] top-[90px] absolute">
           <h1 className='font-bold py-0 text-zinc-700 text-2xl'>You've come to the right place for a great recommendation! We've analyzed your answers and found the perfect match for you. Trust us, you'll love it! But don't take our word for it, see for yourself. And if you want to try again, no problem! You can always fill out the questionnaire again and get a new recommendation. We're here to make you happy!<br /></h1>
-          
-          <button className='modalButton  bg-teal-600 hover:bg-zinc-600 w-[400px] p-4 my-2 text-amber-100  text-base font-bold rounded-lg shadow'>
+
+          <button className='modalButton  bg-red-400 hover:bg-zinc-600 w-[400px] p-4 my-2 text-amber-100  text-base font-bold rounded-lg shadow' onClick={fetchData}>
+            Get Results
+          </button>
+          <button onClick={() => setOpenModal(true)} className='modalButton  bg-teal-600 hover:bg-zinc-600 w-[400px] p-4 my-2 text-amber-100  text-base font-bold rounded-lg shadow'>
             Start Over 🔄
           </button>
+        </div>
+        <div className="modal  top-[50px] left-[300px] flex justify-center absolute z-index ">
+            <Modal open={openModal} onClose={() => setOpenModal(false)} />
         </div>
         <div className="modal  top-[50px] left-[300px] flex justify-center absolute z-index ">
         </div>

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import bg from './images/img005.png';
 import { useNavigate } from 'react-router-dom';
-import { collection, addDoc, doc, serverTimestamp, updateDoc, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, doc, serverTimestamp, updateDoc} from 'firebase/firestore';
 import { db } from '../firebase';
 import { UserAuth } from '../context/AuthContext';
 
@@ -44,15 +44,15 @@ const Modal = ({ open, onClose }) => {
             var prompt;
 
             if (specialRequests === "") {
-                prompt = "Plan a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
-                    + purpose + ". However, I have " + budget + " budget. and also I am intrested in activities of " + activities + ". I will prefer " + accommodation + "accomodation for staying. Please Plan trip for " + tripDuration + " days for " + numberOfTravelers + " people. "
-                    + 'I ' + dietaryRequirements + "have dietry requirements. Also Suggest me some good accomodations for stay and best way to travel";
+                prompt = "I want you to act as my travel partner and plan me a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
+                    + purpose + ". However, I have " + budget + " budget. and also I am intrested in activities of " + activities + ". I will prefer " + accommodation + " for staying. Please Plan trip for " + tripDuration + " days for " + numberOfTravelers + " people. Plan a itinerary. "
+                    + 'I ' + dietaryRequirements + "have dietry requirements. Please also suggest me some hotels for stay and best way to travel";
             }
             else {
                 specialRequests = " I have special requests like, " + specialRequests;
-                prompt = "Plan a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
-                    + purpose + ". However, I have " + budget + 'budget. and I am intrested in activities of' + activities + ". I will prefer " + accommodation + " accomodation for staying. Please Plan trip for " + tripDuration + " days for " + numberOfTravelers + " people. "
-                    + 'I ' + dietaryRequirements + " have speical dietry requirements. Also Suggest me some good places for stay and best way to travel" + specialRequests;
+                prompt = "I want you to act as my travel partner and plan me a trip to " + country + " and I want to explore a wonderful and vibrant " + destination + " with purpose of "
+                    + purpose + ". However, I have " + budget + 'budget. and I am intrested in activities of' + activities + ". I will prefer " + accommodation + " for staying. Please Plan trip for " + tripDuration + " days for " + numberOfTravelers + " people. Plan a itinerary. "
+                    + 'I ' + dietaryRequirements + " have speical dietry requirements. Also Suggest me some hotles for stay and best way to travel" + specialRequests;
 
             };
 
@@ -83,29 +83,26 @@ const Modal = ({ open, onClose }) => {
                 tempdata,
             });
 
-            const listen = onSnapshot(doc(db, 'userFormData', user.email, 'PmtRES_GEN', tempdata), (doc) => {
-                const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-                const dataL = doc.data();
-                const resp = dataL.response;
-                console.log('Promt added to prmtinout subcollection with ID:', resp, listen, source);
-            });
+            // const listen = onSnapshot(doc(db, 'userFormData', user.email, 'PmtRES_GEN', tempdata), (doc) => {
+            //     const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+            //     const dataL = doc.data();
+            //     const resp = dataL.response;
+            //     console.log('Promt added to prmtinout subcollection with ID:', resp, listen, source);
+            // });
 
 
             e.target.reset();
 
             console.log('Document added to SearchHistory subcollection with ID:', docRef.id);
             console.log('Promt added to prmtinout subcollection with ID:', docRef1.id);
-            
-            function result() {
-                
-                navigate('/result')
-              }
-
-            setTimeout(result,8000);
-
-            //navigate('/result');
 
 
+            function result() 
+            {
+                navigate('/wait')
+            }
+
+            setTimeout(result, 2000);
         }
         catch (error) {
             console.error('Error submitting form data:', error.message);
@@ -130,12 +127,16 @@ const Modal = ({ open, onClose }) => {
                             <option value="beach">Beach</option>
                             <option value="mountains">Mountains</option>
                             <option value="countryside">Countryside</option>
-                            <option value="other">Other</option>
                         </select><br />
 
                         <label for="country" className='text font-bold text-zinc-700'>What is your preferred Country?   </label>
                         <select ref={countryRef} id="country" name="country" className='border p-0 w-auto font-bold rounded-lg shadow bg-amber-50 text-red-500'>
                             <option value="Canada">Canada</option>
+                            <option value="USA">USA</option>
+                            <option value="Pakistan">Pakitan</option>
+                            <option value="India">India</option>
+                            <option value="Europe">Europe</option>
+                            <option value="UAE">UAE</option>
                         </select><br />
 
                         <label for="purpose" className='text font-bold text-zinc-700'>What is the purpose of your travel?    </label>
@@ -144,7 +145,6 @@ const Modal = ({ open, onClose }) => {
                             <option value="business">Business</option>
                             <option value="adventure">Adventure</option>
                             <option value="cultural">Cultural exploration</option>
-                            <option value="other">Other</option>
                         </select><br />
 
                         <label for="budget" className='text font-bold text-zinc-700'>What is your budget range?  </label>
@@ -158,9 +158,7 @@ const Modal = ({ open, onClose }) => {
                         <select ref={accommodationRef} id="accommodation" name="accommodation" className='border p-0 w-auto font-bold rounded-lg shadow  bg-amber-50 text-red-500'>
                             <option value="hotel">Hotel</option>
                             <option value="hostel">Hostel</option>
-                            <option value="Bed & Breakfast">Bed & Breakfast</option>
                             <option value="apartment">Apartment Rental</option>
-                            <option value="other">Other</option>
                         </select><br />
 
                         <p className='text font-bold text-zinc-700'>What activities are you interested in? (Please select max 2)</p>

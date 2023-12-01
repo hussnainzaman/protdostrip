@@ -35,6 +35,7 @@ const Signin = () => {
       setError(e.message)
       console.log(e.message,error)
     }
+    e.target.reset();
   };
   return (
     <div className='signin w-[1400px] mx-auto my-auto '>
@@ -63,6 +64,7 @@ const Signin = () => {
           <h1 className='font-bold py-2 text-zinc-700 text-5xl'>Log in to your account.</h1>
 
           <form onSubmit={handleSubmit}>
+          {error && <p className="text-red-500">{error}</p>}
             <div className='flex flex-col py-2'>
               <label className='py-2 font-medium'>Email Address</label>
               <input onChange={(e) => setEmail(e.target.value)} className='border p-3 rounded-lg shadow' type='email' />

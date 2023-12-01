@@ -14,7 +14,7 @@ const Signup = () => {
     setError('Please type all information requried');
     try {
       await createUser(email, password);
-      navigate('/account')
+      navigate('/main')
     } catch (e) {
       setError(e.message);
       console.log(e.message,error);
