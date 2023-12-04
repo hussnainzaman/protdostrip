@@ -36,8 +36,6 @@ const Output = (e) => {
         setResponseData(data.response);
         console.log("Document data:", responseData);
         // console.log("Document data:", StatusData);
-
-
       }
       else {
         console.log("No such document!");
@@ -73,15 +71,13 @@ const Output = (e) => {
           <img className="image w-200 h-200 " src={require("./images/img006.png")} alt='pic by freepik' />
 
         </div>
-        
+        {responseData}
         <div className="Rectangle left-[900px] w-[400px] h-[400px] top-[200px] absolute">
          
-          {/* <h1 className='font-bold py-0 text-zinc-700 '>! </h1> */}
-         <Popup trigger= {<button className='modalButton  bg-red-400 hover:bg-zinc-600 w-[400px] p-4 my-2 text-amber-100  text-base font-bold rounded-lg shadow' onClick={fetchData}>
+          <h1 className='font-bold py-0 text-zinc-700 '> </h1> 
+         <button className='modalButton  bg-red-400 hover:bg-zinc-600 w-[400px] p-4 my-2 text-amber-100  text-base font-bold rounded-lg shadow' onClick={fetchData}>
             Get Results
-          </button>} position="left" contentStyle={{ width: '800px', height: 'auto', padding: '20px' }} >
-          {responseData}
-          </Popup> 
+          </button>
           <button onClick={() => setOpenModal(true)} className='modalButton  bg-teal-600 hover:bg-zinc-600 w-[400px] p-4 my-2 text-amber-100  text-base font-bold rounded-lg shadow'>
             Start Over 🔄
           </button>
