@@ -57,17 +57,17 @@ const Home = () => {
           <Popup trigger={<button className=' bg-teal-300 hover:bg-teal-600 w-full p-4 my-2 text-zinc-700  text-base font-bold rounded-lg shadow'>
             How it Works?🤔
           </button>} position="left">
-            it works haha.
+          Explore the wonders of our application by navigating through different sections, answering our questionnaire for a personalized experience, discovering our travel partners, and understanding the information we collect to enhance your journey. Click 'Start Questionnaire...!' to begin your adventure and enjoy a unique and memorable experience with us.
           </Popup>
           <Popup trigger={<button className=' bg-teal-300 hover:bg-teal-600 w-full p-4 my-2 text-zinc-700  text-base font-bold rounded-lg shadow'>
             What we Collect?💾
           </button>} position="left">
-            it works haha.
+          Discover the magic behind the scenes!"  From travel preferences to interests, dive into the details of the information we curate to make your experience truly one-of-a-kind. Your journey is unique, and so is the way we personalize it just for you!
           </Popup>
           <Popup trigger={<button className=' bg-teal-300 hover:bg-teal-600 w-full p-4 my-2 text-zinc-700 text-base font-bold rounded-lg shadow'>
             Our Travel Partners✈🛌🚄.
           </button>} position="left">
-            Coming Soon! Our Team is working with partners to bring you a unique experience.
+          Get ready for exciting collaborations coming soon!". Stay tuned for future partnerships that will elevate your travel experience. We're actively working behind the scenes to bring you a curated selection of top-notch accommodations, exclusive deals, and unforgettable adventures. The journey is about to get even more thrilling with our upcoming travel partners. Stay connected and be the first to explore a world of possibilities in the world of travel!
           </Popup>
           <button onClick={() => setOpenModal(true)} className='modalButton  bg-red-400 hover:bg-teal-600 w-[400px] p-4 my-2 text-amber-100  text-base font-bold rounded-lg shadow'>
             Start Questionnaire...!

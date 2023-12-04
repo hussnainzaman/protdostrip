@@ -34,7 +34,7 @@ const Landing = () => {
 
           </Link>
         </button>
-        <button className="navbtn2 left-[999px] top-[30px] absolute text-amber-100  text-xl font-semibold font-['Nunito']">About Us</button>
+        <button className="navbtn2 left-[999px] top-[30px] absolute text-amber-100  text-xl font-semibold font-['Nunito']"> </button>
       </div>
       <div className="Header mx-auto my-auto top-[95px] absolute">
         <div className="MaskGroup w-50 h-auto left-0 top-0">
