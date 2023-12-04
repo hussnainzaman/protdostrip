@@ -4,7 +4,7 @@ import { doc, getDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase';
 import { UserAuth } from '../context/AuthContext';
 import Modal from './Modal'
-import Popup from 'reactjs-popup';
+//import Popup from 'reactjs-popup';
 
 
 
@@ -49,7 +49,7 @@ const Output = (e) => {
 
 
   return (
-    <div className='home w-[1400px] mx-auto my-auto '>
+    <div className='home w-[1400px] mx-auto my-auto bg-amber-100'>
       <div className="Rectangle w-auto h-20 bg-teal-400 bg-gradient-to-r from-cyan-600 to-teal-500 ">
         <div className="signoutbtn w-28 h-12 left-[1240px] top-[20px] absolute">
           <div className="Rectangle w-28 h-12 left-0 top-0 absolute rounded-lg shadow bg-zinc-700" />
@@ -63,16 +63,16 @@ const Output = (e) => {
           </Link>
         </button>
       </div>
-      <div class name=" response square left-[900px] w-[400px] h-[400px] top-[90px] absolute">
-       
-      </div>
+      
+      {responseData}
+      
       <div className="Header mx-auto my-auto absolute">
-        <div className="MaskGroup w-50 h-auto left-0 top-0">
+        {/* <div className="MaskGroup w-50 h-auto left-0 top-0">
           <img className="image w-200 h-200 " src={require("./images/img006.png")} alt='pic by freepik' />
 
-        </div>
-        {responseData}
-        <div className="Rectangle left-[900px] w-[400px] h-[400px] top-[200px] absolute">
+        </div> */}
+        
+        <div className="Rectangle left-[500px] w-[400px] h-[400px] top-[20px] absolute ">
          
           <h1 className='font-bold py-0 text-zinc-700 '> </h1> 
          <button className='modalButton  bg-red-400 hover:bg-zinc-600 w-[400px] p-4 my-2 text-amber-100  text-base font-bold rounded-lg shadow' onClick={fetchData}>
@@ -88,10 +88,10 @@ const Output = (e) => {
         <div className="modal  top-[50px] left-[300px] flex justify-center absolute z-index ">
         </div>
 
-        <div class="Rectangle h-20 left-0 top-0  bg-red-400 text-center p-6 text-white">
+        {/* <div class="Rectangle h-20 left-0 top-0  bg-red-400 text-center p-6 text-white">
           This application is built for project purposes and not to be run commercially.<br />
           Brought you by: Hussnain, Krintan, Muskan, and Abhishek
-        </div>
+        </div> */}
       </div>
     </div>
 
