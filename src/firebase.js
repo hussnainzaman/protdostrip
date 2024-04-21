@@ -6,14 +6,7 @@ import {getFirestore} from 'firebase/firestore';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBOb1mGak7Ifp-QgL6fVOXknJ8kmccnbUo",
-  authDomain: "dostrip-f1b21.firebaseapp.com",
-  databaseURL: "https://dostrip-f1b21-default-rtdb.firebaseio.com",
-  projectId: "dostrip-f1b21",
-  storageBucket: "dostrip-f1b21.appspot.com",
-  messagingSenderId: "175276502848",
-  appId: "1:175276502848:web:264f416ae4644fd16414a5",
-  measurementId: "G-835MSM95PE"
+  //your API key here
 };
 
 
